@@ -49,6 +49,13 @@ python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 ```
 
+For a byte-reproducible install (the exact dependency versions this
+repo was actually tested against -- see `constraints.txt`):
+
+```bash
+pip install -e ".[dev]" -c constraints.txt
+```
+
 ## Run
 
 ```bash

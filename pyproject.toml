@@ -6,17 +6,24 @@ build-backend = "setuptools.build_meta"
 name = "execution-order-management-simulator"
 version = "0.1.0"
 description = "Deterministic event-driven order management and execution simulator: order lifecycle state machine, order-book simulation, risk gates, execution algorithms (market/limit/TWAP/VWAP), cost-aware execution analytics, and P&L reconciliation"
-requires-python = ">=3.9"
+requires-python = ">=3.9,<3.13"
 dependencies = [
-    "pandas>=2.0",
-    "numpy>=1.23",
-    "pyyaml>=6.0",
-    "orderbook-priority-sim @ git+https://github.com/Patience-Fuglo/orderbook-priority-sim.git",
-    "market-making-sim @ git+https://github.com/Patience-Fuglo/market-making-sim.git",
-    "factor-model-engine @ git+https://github.com/Patience-Fuglo/factor-model-engine.git",
-    "portfolio-construction-engine @ git+https://github.com/Patience-Fuglo/portfolio-construction-engine.git",
-    "transaction-cost-engine @ git+https://github.com/Patience-Fuglo/transaction-cost-engine.git",
+    "pandas>=2.0,<4.0",
+    "numpy>=1.23,<3.0",
+    "pyyaml>=6.0,<7.0",
+    "orderbook-priority-sim @ git+https://github.com/Patience-Fuglo/orderbook-priority-sim.git@2038e38fc6c1a31be98353348ba6ee670217c569",
+    "market-making-sim @ git+https://github.com/Patience-Fuglo/market-making-sim.git@e7f479f61af26d3f253ccbce3509f67833a2be06",
+    "portfolio-construction-engine @ git+https://github.com/Patience-Fuglo/portfolio-construction-engine.git@678cc6c68ca2cc339e4e968db7065ea9b71388d3",
+    "transaction-cost-engine @ git+https://github.com/Patience-Fuglo/transaction-cost-engine.git@49030a9b7ee412c3a98d04ce82d15d61803a1582",
 ]
+# factor-model-engine was previously declared here but never actually
+# imported anywhere in src/, tests/, or scripts/ (confirmed via grep)
+# -- removed during a portfolio-wide dependency reproducibility audit.
+# This repo passes MarketObservation objects through opaquely to
+# portfolio-construction-engine's own real run_backtest/trade_builder
+# functions without ever importing or introspecting the type itself.
+# It still arrives transitively via portfolio-construction-engine's
+# and transaction-cost-engine's own real dependencies.
 
 [project.optional-dependencies]
 dev = ["pytest>=7.4"]
