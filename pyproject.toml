@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "execution-order-management-simulator"
+version = "0.1.0"
+description = "Deterministic event-driven order management and execution simulator: order lifecycle state machine, order-book simulation, risk gates, execution algorithms (market/limit/TWAP/VWAP), cost-aware execution analytics, and P&L reconciliation"
+requires-python = ">=3.9"
+dependencies = [
+    "pandas>=2.0",
+    "numpy>=1.23",
+    "pyyaml>=6.0",
+    "orderbook-priority-sim @ git+https://github.com/Patience-Fuglo/orderbook-priority-sim.git",
+    "market-making-sim @ git+https://github.com/Patience-Fuglo/market-making-sim.git",
+    "factor-model-engine @ git+https://github.com/Patience-Fuglo/factor-model-engine.git",
+    "portfolio-construction-engine @ git+https://github.com/Patience-Fuglo/portfolio-construction-engine.git",
+    "transaction-cost-engine @ git+https://github.com/Patience-Fuglo/transaction-cost-engine.git",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: exercises real CLI subprocesses or multi-stage pipelines end to end; still run by default, just slower than the rest of the suite",
+]

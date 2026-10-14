@@ -1,0 +1,32 @@
+# Engine-wide configuration. Every field tagged RESEARCH ASSUMPTION in
+# docs/research_assumptions.md needs the researcher's explicit sign-off --
+# these are modeling choices, not safe engineering defaults.
+
+run:
+  output_dir: "outputs"
+  random_seed: 1337
+
+simulation:
+  market_step_size: 0.1               # RESEARCH ASSUMPTION
+  post_schedule_horizon: 20.0          # RESEARCH ASSUMPTION
+  staleness_threshold: 5.0             # RESEARCH ASSUMPTION
+
+venue:
+  tick_size: 0.01                            # RESEARCH ASSUMPTION
+  n_price_levels: 5                          # RESEARCH ASSUMPTION
+  level_spacing_in_ticks: 1                  # RESEARCH ASSUMPTION
+  base_level_size: 500.0                     # RESEARCH ASSUMPTION
+  counterparty_aggressive_fraction: 0.3      # RESEARCH ASSUMPTION
+  counterparty_order_size: 100.0             # RESEARCH ASSUMPTION
+  random_seed: 1337
+
+latency:
+  ack_latency: 0.5             # RESEARCH ASSUMPTION
+  cancel_latency: 0.5          # RESEARCH ASSUMPTION
+  spike_probability: 0.0       # RESEARCH ASSUMPTION
+  spike_multiplier: 10.0       # RESEARCH ASSUMPTION
+
+risk_limits:
+  max_position_per_security: 100000.0     # RESEARCH ASSUMPTION
+  max_gross_notional: 5000000.0           # RESEARCH ASSUMPTION
+  max_order_notional: 1000000.0           # RESEARCH ASSUMPTION
